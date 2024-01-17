@@ -7,16 +7,33 @@
     <title>Document</title>
     @include('layouts.css')
 </head>
-<body>
-    <div class="modal-header">
-        <h6 class="font_header text-base mr-auto ">
-            <b>รายการที่ขอของคุณ {{ $RequestProduct->first_name  }} {{  $RequestProduct->last_name }}</b>
-        </h6>
-        <b>วันที่ขอ {{ date('d/m/Y', strtotime('+543 Years', strtotime($RequestProduct->updated_at))) }}</b>
-    </div>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-    <div class="modal-body">
-        <div class="col-span-12 ">
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+<body>
+    <div class="">
+        <h3 class="">
+            <b>รายการที่ขอของคุณ {{ $RequestProduct->first_name  }} {{  $RequestProduct->last_name }}</b>
+            <b>วันที่ขอ {{ date('d/m/Y', strtotime('+543 Years', strtotime($RequestProduct->updated_at))) }}</b>
+        </h3>
+
+    </div>
+    <div class="">
+        <div class="">
             @php
 
                 $i=1;
@@ -69,11 +86,14 @@
                 <tr>
                   <td><b>รวมราคา</b></td>
                   <td colspan="3"></td>
-                  <td><b id=sum_price></b></td>
+                  <td><b>{{ number_format($total) }}</b></td>
                 </tr>
               </table>
         </div>
     </div>
     @include('layouts.script')
+
+
+
 </body>
 </html>

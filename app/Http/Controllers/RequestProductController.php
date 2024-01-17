@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ReportMailJob;
 use App\Mail\ReportMail;
 use App\Models\Product;
 use App\Models\RequestProduct;
@@ -55,6 +56,11 @@ class RequestProductController extends Controller
             })
             ->addColumn('action', function ($row) {
                 $data = "";
+                $data .= "
+                <a href='javascript:;'  onclick='sendmail($row->id);'
+                    class='btn btn-success shadow-md mr-2  btn-sm'>Send Mail</a>
+                ";
+
                 $data .= "
                 <a href='javascript:;' data-tw-toggle='modal' data-tw-target='#show_modal' onclick='show_modal($row->id);'
                     class='btn btn-primary shadow-md mr-2  btn-sm'>ดูรายละเอียด</a>
@@ -158,10 +164,10 @@ class RequestProductController extends Controller
          ]);
      }
 
+    //  ส่ง Mail
      public function sendmail(Request $request){
-        dd('asd');
-        $id =  $request->id;
-        Mail::to('thitipat1020@gmail.com')->send(new ReportMail($id));
+        dispatch(new ReportMailJob($request->id));
+        return response()->json(true);
 
 
      }

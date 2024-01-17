@@ -120,12 +120,11 @@
                 _token: "{{ csrf_token() }}",
                 id: id
             },
-
             success: function(data) {
                 if(data == true){
                     Swal.fire({
                     title: "สำเร็จ",
-                    text: "ลบข้อมูลเรียบร้อย",
+                    text: "ส่งอีเมลเรียบร้อย",
                     }).then((result) =>{
                         location.reload();
                     });

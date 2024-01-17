@@ -134,6 +134,40 @@
             }
         });
     }
+
+
+// ส่ง Mail
+function sendmail(id) {
+    Swal.fire({
+    title: "ต้องการส่งอีเมล ?",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "ใช่, ต้องการ!",
+    cancelButtonText: "ยกเลิก"
+    }).then((result) => {
+if (result.isConfirmed) {
+    $.ajax({
+            type: 'GET',
+            url: fullUrl + '/sendmail/'  + id ,
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: id,
+            },
+            dataType: 'html',
+            success: function(data) {
+                $('#exampleModal').modal('show');
+                $('.modal-content').html(data);
+                // $('#show_modal').modal('show');
+            }
+        });
+
+}
+});
+    }
+
 </script>
 @endsection
 

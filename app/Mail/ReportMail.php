@@ -19,6 +19,8 @@ class ReportMail extends Mailable
     public $mouse;
     public $keyboard;
     public $RequestProductMonitor;
+    public $monitor_sum;
+    public $total;
 
     /**
      * Create a new message instance.
@@ -33,6 +35,10 @@ class ReportMail extends Mailable
         $this->mouse = Product::where('id',$this->RequestProduct->id_mouse)->first();
         $this->keyboard = Product::where('id',$this->RequestProduct->id_keyboard)->first();
         $this->RequestProductMonitor = RequestProductMonitor::join('products','products.id','request_product_monitors.id_monitor')->where('id_reques_product',$id)->get();
+        $this->monitor_sum = RequestProductMonitor::join('products','products.id','request_product_monitors.id_monitor')->where('id_reques_product',$id)->sum('price');
+        $this->total = @$this->mouse->price + @$this->keyboard->price + @$this->monitor_sum;
+
+
     }
 
     /**
